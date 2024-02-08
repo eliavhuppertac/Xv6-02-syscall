@@ -1,0 +1,25 @@
+
+1. 
+usertrap () at kernel/trap.c:67 is the function that called syscall
+
+2. 
+7, this is the value of SYS_exec as defined in syscall.h
+
+3.
+the value of the register is 0x22 which in binary is 0010 0010, that means that the spp [the 8th bit] is 0x0, so we are in user mode
+
+4.
+the assembly code is:   
+    lw	a3,0(zero) # 0 <_entry-0x80000000>
+meaning that num is stored in a3
+
+5.
+The kernel panics because we are trying to read the value at address 0x0 which is not loaded, so we get a page fault
+This makes sense because we get error code 0xd (13) which is "Load page fault"
+
+Note: This is not the kernel space! That begins at 0x80000000
+
+6.
+proess name: "initcode\000\000\000\000\000\000\000\"
+proces pid: 1
+
